@@ -10,7 +10,7 @@ const generateToken = (payload) => {
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.token;
   if (authHeader) {
-    const token = authHeader.split(" ");
+    const token = authHeader.split(" ")[1];
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
       if (err) {
         return res.status(403).json("Token is not valid");
@@ -27,7 +27,7 @@ const verifyToken = (req, res, next) => {
 // Allow admin and owner of the account to perform some operations
 const verifyTokenAndAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
-    if (req.user.id === req.params.id) {
+    if (req.user.id === req.params.id || req.user.isAdmin) {
       next();
     } else {
       return res.status(403).json("You are not allowed to do that");

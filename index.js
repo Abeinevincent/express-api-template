@@ -11,6 +11,7 @@ const dotenv = require("dotenv").config();
 
 // Import all routes
 const AuthRoute = require("./routes/auth");
+const UsersRoute = require("./routes/users");
 // const errors = require("./routes/errors");
 
 // MongoDB connection
@@ -33,6 +34,7 @@ app.use(morgan("common"));
 // app.use(errors.generalErrorHandler);
 
 app.use("/api/auth", AuthRoute);
+app.use("/api/users", UsersRoute);
 
 // Start the backend server
 const PORT = process.env.PORT || 8800;

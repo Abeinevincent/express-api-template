@@ -7,7 +7,7 @@ const { generateToken } = require("./token");
 
 router.post("/register", async (req, res) => {
   // Collect users details
-  //generate new password
+  //generate new password and hash it
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
